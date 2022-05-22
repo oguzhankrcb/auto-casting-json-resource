@@ -46,7 +46,6 @@ abstract class AutoCastingJsonResource extends JsonResource
         $castingKeys = array_keys($this->castings());
 
         foreach ($data as $key => $value) {
-
             if (in_array($key, $this->excludedColumns())) {
                 continue;
             }
@@ -56,6 +55,7 @@ abstract class AutoCastingJsonResource extends JsonResource
                 $newValue = $castingFunction($value);
 
                 $data[$key] = $newValue;
+
                 continue;
             }
 
@@ -72,6 +72,7 @@ abstract class AutoCastingJsonResource extends JsonResource
                 }
 
                 $data[$key] = $newValue;
+
                 continue;
             }
 

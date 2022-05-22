@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Oguzhankrcb\AutoCastingJsonResource\AutoCastingJsonResource;
 
 class TestResource extends AutoCastingJsonResource

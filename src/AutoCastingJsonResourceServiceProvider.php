@@ -4,7 +4,6 @@ namespace Oguzhankrcb\AutoCastingJsonResource;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Oguzhankrcb\AutoCastingJsonResource\Commands\AutoCastingJsonResourceCommand;
 
 class AutoCastingJsonResourceServiceProvider extends PackageServiceProvider
 {
