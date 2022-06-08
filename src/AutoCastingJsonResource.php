@@ -2,9 +2,7 @@
 
 namespace Oguzhankrcb\AutoCastingJsonResource;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
-abstract class AutoCastingJsonResource extends JsonResource
+trait AutoCastingJsonResource
 {
     abstract public function castings(): array;
 
@@ -13,13 +11,6 @@ abstract class AutoCastingJsonResource extends JsonResource
         return [
             'id',
         ];
-    }
-
-    public function toArray($request)
-    {
-        $data = parent::toArray($request);
-
-        return $this->autoCast($data);
     }
 
     private function getKnownTypes(): array
@@ -32,7 +23,7 @@ abstract class AutoCastingJsonResource extends JsonResource
         ];
     }
 
-    private function isValueIsKnownType($valueType): bool
+    private function isValueIsKnownType(string $valueType): bool
     {
         if (in_array($valueType, $this->getKnownTypes())) {
             return true;
@@ -41,12 +32,21 @@ abstract class AutoCastingJsonResource extends JsonResource
         return false;
     }
 
-    private function autoCast($data)
+    private function isKeyExcluded(string $key): bool
+    {
+        if (in_array($key, $this->excludedColumns())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function autoCast($data)
     {
         $castingKeys = array_keys($this->castings());
 
         foreach ($data as $key => $value) {
-            if (in_array($key, $this->excludedColumns())) {
+            if ($this->isKeyExcluded($key)) {
                 continue;
             }
 
