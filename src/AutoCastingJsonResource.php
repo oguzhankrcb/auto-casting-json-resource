@@ -23,6 +23,13 @@ trait AutoCastingJsonResource
         ];
     }
 
+    private function isValueInCastings($value, $isValueTypeOfClass = false): bool
+    {
+        return $isValueTypeOfClass === false
+            ? array_key_exists($value, $this->castings())
+            : array_key_exists(get_class($value), $this->castings());
+    }
+
     private function isValueIsKnownType(string $valueType): bool
     {
         if (in_array($valueType, $this->getKnownTypes())) {
@@ -32,9 +39,44 @@ trait AutoCastingJsonResource
         return false;
     }
 
-    private function isKeyExcluded(string $key): bool
+    private function isKeyExcluded(string $key, array &$data): bool
     {
-        if (in_array($key, $this->excludedColumns())) {
+        return in_array($key, $this->excludedColumns());
+    }
+
+    private function isValueIsObjectAndInCastings($key, $value, array &$data): bool
+    {
+        if (
+            is_object($value) &&
+            $this->isValueInCastings($value, true)
+        ) {
+            $castingFunction = $this->castings()[get_class($value)];
+            $newValue = $castingFunction($value);
+
+            $data[$key] = $newValue;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private function isValueIsKnownTypeAndInCastings($key, $value, array &$data): bool
+    {
+        $valueType = gettype($value);
+
+        if ($this->isValueIsKnownType($valueType) && $this->isValueInCastings($valueType)) {
+            $castingType = $this->castings()[$valueType];
+            $newValue = $value;
+
+            if (is_callable($castingType)) {
+                $newValue = $castingType($newValue);
+            } else {
+                settype($newValue, (string) $castingType);
+            }
+
+            $data[$key] = $newValue;
+
             return true;
         }
 
@@ -43,38 +85,15 @@ trait AutoCastingJsonResource
 
     public function autoCast($data)
     {
-        $castingKeys = array_keys($this->castings());
-
         foreach ($data as $key => $value) {
-            if ($this->isKeyExcluded($key)) {
+            if (
+                $this->isKeyExcluded($key, $data) ||
+                $this->isValueIsObjectAndInCastings($key, $value, $data) ||
+                $this->isValueIsKnownTypeAndInCastings($key, $value, $data)
+            ) {
                 continue;
             }
 
-            if (is_object($value) && in_array(get_class($value), $castingKeys)) {
-                $castingFunction = $this->castings()[$value];
-                $newValue = $castingFunction($value);
-
-                $data[$key] = $newValue;
-
-                continue;
-            }
-
-            $valueType = gettype($value);
-
-            if ($this->isValueIsKnownType($valueType) && in_array($valueType, $castingKeys)) {
-                $castingType = $this->castings()[$valueType];
-                $newValue = $value;
-
-                if (is_callable($castingType)) {
-                    $newValue = $castingType($newValue);
-                } else {
-                    settype($newValue, $castingType);
-                }
-
-                $data[$key] = $newValue;
-
-                continue;
-            }
 
             if (is_array($value)) {
                 $data[$key] = $this->autoCast($value);
