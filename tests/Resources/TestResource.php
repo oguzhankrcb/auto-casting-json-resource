@@ -8,6 +8,7 @@ use Oguzhankrcb\AutoCastingJsonResource\AutoCastingJsonResource;
 class TestResource extends JsonResource
 {
     use AutoCastingJsonResource;
+
     /**
      * Transform the resource into an array.
      *
