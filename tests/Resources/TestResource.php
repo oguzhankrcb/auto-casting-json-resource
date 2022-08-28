@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+namespace Tests\Resources;
 
+use Brick\Money\Money;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Oguzhankrcb\AutoCastingJsonResource\AutoCastingJsonResource;
 
@@ -17,13 +18,14 @@ class TestResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return $this->autoCast(parent::toArray($request));
     }
 
     public function castings(): array
     {
         return [
-          'integer' => fn ($value) => (int) ($value / 100),
+            'integer' => fn ($value) => (int) ($value / 100),
+            Money::class => fn (Money $value) => $value->getMinorAmount()->toInt() / 2,
         ];
     }
 }
