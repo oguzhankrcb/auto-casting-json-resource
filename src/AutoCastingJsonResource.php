@@ -39,11 +39,28 @@ trait AutoCastingJsonResource
         return false;
     }
 
+
+    /**
+     * @param string $key
+     * @param array $data
+     * @return bool
+     *
+     * @see \Tests\Unit\AutoCastingJsonResourceTest::it_must_exclude_columns_in_excluded_columns_array()
+     */
     private function isKeyExcluded(string $key, array &$data): bool
     {
         return in_array($key, $this->excludedColumns());
     }
 
+
+    /**
+     * @param $key
+     * @param $value
+     * @param array $data
+     * @return bool
+     *
+     * @see \Tests\Unit\AutoCastingJsonResourceTest::it_must_cast_object_type_values()
+     */
     private function isValueIsObjectAndInCastings($key, $value, array &$data): bool
     {
         if (
@@ -61,6 +78,14 @@ trait AutoCastingJsonResource
         return false;
     }
 
+    /**
+     * @param $key
+     * @param $value
+     * @param array $data
+     * @return bool
+     *
+     * @see \Tests\Unit\AutoCastingJsonResourceTest::it_must_cast_known_types()
+     */
     private function isValueIsKnownTypeAndInCastings($key, $value, array &$data): bool
     {
         $valueType = gettype($value);
