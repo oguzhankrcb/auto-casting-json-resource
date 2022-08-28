@@ -80,6 +80,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Oğuzhan KARACABAY](https://github.com/oguzhankrcb)
+- [Emre Deligöz](https://github.com/deligoez)
+- [Turan Karatuğ](https://github.com/tkaratug)
 - [All Contributors](../../contributors)
 
 ## License
