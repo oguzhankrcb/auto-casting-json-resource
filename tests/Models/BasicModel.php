@@ -1,6 +1,6 @@
 <?php
 
-namespace Oguzhankrcb\AutoCastingJsonResource\Tests\Models;
+namespace Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
