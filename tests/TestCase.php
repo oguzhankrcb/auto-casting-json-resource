@@ -2,9 +2,8 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\WithFaker;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use Oguzhankrcb\AutoCastingJsonResource\AutoCastingJsonResourceServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {

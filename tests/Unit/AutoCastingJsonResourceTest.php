@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 class AutoCastingJsonResourceTest extends TestCase
 {
-
     /**
      * @test
      *
@@ -33,7 +32,7 @@ class AutoCastingJsonResourceTest extends TestCase
                 'data' => [
                     'id' => 1,
                     'price' => 150,
-                ]
+                ],
             ]);
     }
 
@@ -62,7 +61,7 @@ class AutoCastingJsonResourceTest extends TestCase
                 'data' => [
                     'id' => 1,
                     'price' => 7500,
-                ]
+                ],
             ]);
     }
 
@@ -87,7 +86,7 @@ class AutoCastingJsonResourceTest extends TestCase
                 'data' => [
                     'id' => 1000,
                     'price' => 150,
-                ]
+                ],
             ]);
     }
 }

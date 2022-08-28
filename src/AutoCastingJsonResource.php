@@ -39,7 +39,6 @@ trait AutoCastingJsonResource
         return false;
     }
 
-
     /**
      * @param string $key
      * @param array $data
@@ -51,7 +50,6 @@ trait AutoCastingJsonResource
     {
         return in_array($key, $this->excludedColumns());
     }
-
 
     /**
      * @param $key
