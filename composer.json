@@ -16,12 +16,14 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0 || ^8.1",
+        "php": "^8.0",
         "spatie/laravel-package-tools": "^1.9.2",
         "laravel/framework": "^8.0 || ^9.0"
     },
     "require-dev": {
+        "brick/money": "^0.6.0",
         "nunomaduro/collision": "^6.0",
+        "orchestra/testbench": "^7.7",
         "phpunit/phpunit": "^9.5",
         "spatie/laravel-ray": "^1.26"
     },
@@ -32,7 +34,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Oguzhankrcb\\AutoCastingJsonResource\\Tests\\": "tests"
+            "Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -45,10 +47,7 @@
         "laravel": {
             "providers": [
                 "Oguzhankrcb\\AutoCastingJsonResource\\AutoCastingJsonResourceServiceProvider"
-            ],
-            "aliases": {
-                "AutoCastingJsonResource": "Oguzhankrcb\\AutoCastingJsonResource\\Facades\\AutoCastingJsonResource"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
