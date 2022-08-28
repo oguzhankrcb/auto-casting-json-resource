@@ -1,6 +1,3 @@
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
-
 # This Laravel package automatically casts your JsonResource data using the casting functions you have defined before.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/oguzhankrcb/auto-casting-json-resource.svg?style=flat-square)](https://packagist.org/packages/oguzhankrcb/auto-casting-json-resource)
@@ -8,15 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/oguzhankrcb/auto-casting-json-resource/Check%20&%20fix%20styling?label=code%20style)](https://github.com/oguzhankrcb/auto-casting-json-resource/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/oguzhankrcb/auto-casting-json-resource.svg?style=flat-square)](https://packagist.org/packages/oguzhankrcb/auto-casting-json-resource)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/auto-casting-json-resource.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/auto-casting-json-resource)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+This package makes easier to add global castings to your `JsonResource` files
 
 ## Installation
 
@@ -26,37 +15,45 @@ You can install the package via composer:
 composer require oguzhankrcb/auto-casting-json-resource
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="auto-casting-json-resource-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="auto-casting-json-resource-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="auto-casting-json-resource-views"
-```
-
 ## Usage
 
+Just add this trait to your `JsonResource`
 ```php
-$autoCastingJsonResource = new Oguzhankrcb\AutoCastingJsonResource();
-echo $autoCastingJsonResource->echoPhrase('Hello, Oguzhankrcb!');
+use AutoCastingJsonResource;
+```
+
+And then you can cast whatever you want in `castings` array
+
+```php
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     */
+    public function toArray($request)
+    {
+        return $this->autoCast(parent::toArray($request));
+    }
+
+    public function castings(): array
+    {
+        return [
+            'integer' => fn ($value) => (int) ($value / 100), // It will divide all integer objects with 100
+            Money::class => fn (Money $value) => $value->getMinorAmount()->toInt() / 2, // It will cast all Brick\Money\Money objects to integer and divide them with 2
+        ];
+    }
+```
+
+You can exclude columns if you want (`id` column is excluded by default)
+
+```php
+    public function excludedColumns(): array
+    {
+        return [
+            'id', // id column will be excluded from castings
+        ];
+    }
 ```
 
 ## Testing
