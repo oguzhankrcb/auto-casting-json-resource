@@ -19,8 +19,8 @@
     verbose="true"
 >
     <testsuites>
-        <testsuite name="Oguzhankrcb Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
     <coverage>
