@@ -6,6 +6,9 @@ trait AutoCastingJsonResource
 {
     abstract public function casts(): array;
 
+    /**
+     * @return string[]
+     */
     public function excludedColumns(): array
     {
         return [
@@ -13,6 +16,9 @@ trait AutoCastingJsonResource
         ];
     }
 
+    /**
+     * @return string[]
+     */
     private function getKnownTypes(): array
     {
         return [
@@ -23,6 +29,11 @@ trait AutoCastingJsonResource
         ];
     }
 
+    /**
+     * @param $value
+     * @param $isValueTypeOfClass
+     * @return bool
+     */
     private function isValueInCastings($value, $isValueTypeOfClass = false): bool
     {
         return $isValueTypeOfClass === false
@@ -30,6 +41,10 @@ trait AutoCastingJsonResource
             : array_key_exists(get_class($value), $this->casts());
     }
 
+    /**
+     * @param string $valueType
+     * @return bool
+     */
     private function isValueIsKnownType(string $valueType): bool
     {
         if (in_array($valueType, $this->getKnownTypes())) {
@@ -106,6 +121,10 @@ trait AutoCastingJsonResource
         return false;
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function autoCast($data)
     {
         foreach ($data as $key => $value) {
