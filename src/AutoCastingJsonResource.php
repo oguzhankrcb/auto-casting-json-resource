@@ -46,7 +46,7 @@ trait AutoCastingJsonResource
      *
      * @see \Tests\Unit\AutoCastingJsonResourceTest::it_must_exclude_columns_in_excluded_columns_array()
      */
-    private function isKeyExcluded(string $key, array &$data): bool
+    private function isKeyExcluded(string $key): bool
     {
         return in_array($key, $this->excludedColumns());
     }
@@ -110,7 +110,7 @@ trait AutoCastingJsonResource
     {
         foreach ($data as $key => $value) {
             if (
-                $this->isKeyExcluded($key, $data) ||
+                $this->isKeyExcluded($key) ||
                 $this->isValueIsObjectAndInCastings($key, $value, $data) ||
                 $this->isValueIsKnownTypeAndInCastings($key, $value, $data)
             ) {
