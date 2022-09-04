@@ -36,7 +36,7 @@ And then you can cast whatever you want in `castings` array
         return $this->autoCast(parent::toArray($request));
     }
 
-    public function castings(): array
+    public function casts(): array
     {
         return [
             'integer' => fn ($value) => (int) ($value / 100), // It will divide all integer objects with 100

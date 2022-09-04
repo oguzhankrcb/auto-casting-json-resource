@@ -21,7 +21,7 @@ class TestResource extends JsonResource
         return $this->autoCast(parent::toArray($request));
     }
 
-    public function castings(): array
+    public function casts(): array
     {
         return [
             'integer' => fn ($value) => (int) ($value / 100),

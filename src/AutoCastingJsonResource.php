@@ -4,7 +4,7 @@ namespace Oguzhankrcb\AutoCastingJsonResource;
 
 trait AutoCastingJsonResource
 {
-    abstract public function castings(): array;
+    abstract public function casts(): array;
 
     public function excludedColumns(): array
     {
@@ -26,8 +26,8 @@ trait AutoCastingJsonResource
     private function isValueInCastings($value, $isValueTypeOfClass = false): bool
     {
         return $isValueTypeOfClass === false
-            ? array_key_exists($value, $this->castings())
-            : array_key_exists(get_class($value), $this->castings());
+            ? array_key_exists($value, $this->casts())
+            : array_key_exists(get_class($value), $this->casts());
     }
 
     private function isValueIsKnownType(string $valueType): bool
@@ -65,7 +65,7 @@ trait AutoCastingJsonResource
             is_object($value) &&
             $this->isValueInCastings($value, true)
         ) {
-            $castingFunction = $this->castings()[get_class($value)];
+            $castingFunction = $this->casts()[get_class($value)];
             $newValue = $castingFunction($value);
 
             $data[$key] = $newValue;
@@ -89,7 +89,7 @@ trait AutoCastingJsonResource
         $valueType = gettype($value);
 
         if ($this->isValueIsKnownType($valueType) && $this->isValueInCastings($valueType)) {
-            $castingType = $this->castings()[$valueType];
+            $castingType = $this->casts()[$valueType];
             $newValue = $value;
 
             if (is_callable($castingType)) {
