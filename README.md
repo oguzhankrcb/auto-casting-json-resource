@@ -22,7 +22,7 @@ Just add this trait to your `JsonResource`
 use AutoCastingJsonResource;
 ```
 
-And then you can cast whatever you want in `castings` array
+And then you can cast whatever you want in `casts` array
 
 ```php
     /**
