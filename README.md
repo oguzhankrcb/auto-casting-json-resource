@@ -3,7 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/oguzhankrcb/auto-casting-json-resource.svg?style=flat-square)](https://packagist.org/packages/oguzhankrcb/auto-casting-json-resource)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/oguzhankrcb/auto-casting-json-resource/run-tests?label=tests)](https://github.com/oguzhankrcb/auto-casting-json-resource/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/oguzhankrcb/auto-casting-json-resource/Check%20&%20fix%20styling?label=code%20style)](https://github.com/oguzhankrcb/auto-casting-json-resource/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/oguzhankrcb/auto-casting-json-resource.svg?style=flat-square)](https://packagist.org/packages/oguzhankrcb/auto-casting-json-resource)
+(https://packagist.org/packages/oguzhankrcb/auto-casting-json-resource)
 
 This package makes easier to add global castings to your `JsonResource` files
 
